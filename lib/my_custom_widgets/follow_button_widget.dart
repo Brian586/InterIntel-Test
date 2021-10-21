@@ -1,0 +1,58 @@
+import 'package:flutter/material.dart';
+
+class FollowButtonWidget extends StatefulWidget {
+  const FollowButtonWidget({Key? key}) : super(key: key);
+
+  @override
+  _FollowButtonWidgetState createState() => _FollowButtonWidgetState();
+}
+
+class _FollowButtonWidgetState extends State<FollowButtonWidget> {
+  bool isSmall = true;
+
+  @override
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: () {
+          setState(() {
+            isSmall = !isSmall;
+          });
+        },
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeIn,
+          width: isSmall ? 50 : 200,
+          height: 50,
+          child: isSmall ? buildShrinked() : buildStretched(),
+        ),
+      );
+
+  Widget buildStretched() => Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.red, width: 2.5),
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: const Center(
+          child: FittedBox(
+            child: Text(
+              'FOLLOW',
+              style: TextStyle(
+                color: Colors.red,
+                letterSpacing: 1.5,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ),
+      );
+
+  Widget buildShrinked() => Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: Colors.red,
+        ),
+        child: const Icon(
+          Icons.people,
+          color: Colors.white,
+        ),
+      );
+}
